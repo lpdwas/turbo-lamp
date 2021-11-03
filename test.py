@@ -263,13 +263,13 @@ def draw(market,y_pre,n_day,right_catch,state):
 
 def __main__(test_dataX, test_dataY, bi_gram_model_path, model_name, Naive_model_path, state, n_day, mindf, proportion):
     # din,training_data = slicing('stopwords.txt')
-    # with open ('traindata.pickle','wb') as f:
+    # with open ('train_data/traindata.pickle','wb') as f:
     #     pickle.dump(din,f)
-    # with open ('train_data.pickle','wb') as g:
+    # with open ('train_data/train_data.pickle','wb') as g:
     #     pickle.dump(training_data,g)
-    with open ('traindata.pickle','rb') as f:
+    with open ('train_data/traindata.pickle','rb') as f:
         din = pickle.load(f)
-    with open ('train_data.pickle','rb') as g:
+    with open ('train_data/train_data.pickle','rb') as g:
         training_data = pickle.load(g)
     market = market_data(test_dataY, proportion)
     bi_gram(training_data, bi_gram_model_path)
@@ -310,7 +310,7 @@ best_score = 0
 best_roc = 0
 for test in [0.10,0.15,0.2,0.25,0.3]:  #得分阈值的选取范围
     for proportion in [0.0010,0.0015,0.0020,0.0025]:  #价格变化比例的选取范围
-        right,roc = __main__(test_dataX='data/'+'2021'+'_news.csv', test_dataY=name + '.csv', bi_gram_model_path=name+'.model',
+        right,roc = __main__(test_dataX='data/'+'2021'+'_news.csv', test_dataY='data/'+ name + '.csv', bi_gram_model_path='save/'+name+'.model',
             model_name='save/'+name+'_One_hot_'+str(nday)+'.pickle', Naive_model_path='save/Naivemodel_'+name+'_'+ str(nday) +'.pickle', 
             state=0, n_day=nday, mindf = round(test,2), proportion=round(proportion,3))
         score = right
